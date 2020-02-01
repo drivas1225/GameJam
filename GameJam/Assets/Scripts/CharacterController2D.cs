@@ -30,6 +30,10 @@ public class CharacterController2D : MonoBehaviour
     public BoolEvent OnCrouchEvent;
     private bool m_wasCrouching = false;
 
+    public float distance;
+    public LayerMask whatIsLadder;
+    private bool isclimbing;
+
     private void Awake()
     {
         m_Rigidbody2D = GetComponent<Rigidbody2D>();
@@ -61,7 +65,7 @@ public class CharacterController2D : MonoBehaviour
     }
 
 
-    public void Move(float move, bool crouch, bool jump)
+    public void Move(float move,float moveV, bool crouch, bool jump , bool stairs)
     {
         // If crouching, check to see if the character can stand up
         if (!crouch)
@@ -130,6 +134,38 @@ public class CharacterController2D : MonoBehaviour
             // Add a vertical force to the player.
             m_Grounded = false;
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+        }
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
+
+        if (hitInfo.collider != null)
+        {
+            if (stairs)
+            {
+                isclimbing = true;
+            }
+        }
+        else
+        {
+            isclimbing = false;
+        }
+
+        if (isclimbing  == true)
+        {
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, moveV);
+            m_Rigidbody2D.gravityScale = 0;
+
+            if (jump)
+            {
+                m_Grounded = false;
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                m_Rigidbody2D.gravityScale = 3;
+                isclimbing = false;
+            }
+        }
+        else
+        {
+            m_Rigidbody2D.gravityScale = 3;
         }
     }
 
