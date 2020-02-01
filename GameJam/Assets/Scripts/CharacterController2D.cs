@@ -138,8 +138,11 @@ public class CharacterController2D : MonoBehaviour
 
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
 
+        
+
         if (hitInfo.collider != null)
         {
+            Debug.Log("presionando");
             if (stairs)
             {
                 isclimbing = true;
@@ -152,6 +155,7 @@ public class CharacterController2D : MonoBehaviour
 
         if (isclimbing  == true)
         {
+            
             m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, moveV);
             m_Rigidbody2D.gravityScale = 0;
 
