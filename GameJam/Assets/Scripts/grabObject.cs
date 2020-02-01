@@ -33,7 +33,6 @@ public class grabObject : MonoBehaviour
                 {
                     Rigidbody2D grabbedObject = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                     grabbed = true;
-                    grabbedObject.fixedAngle = true;
                 }
             }   
             else
