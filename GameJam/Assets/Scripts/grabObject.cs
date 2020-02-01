@@ -10,10 +10,11 @@ public class grabObject : MonoBehaviour
     public Transform holdPoint;
     public float throwForce = 0.5f;
     [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
-    // Start is called before the first frame update
+    public LayerMask whatIsBox;
+
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -24,17 +25,17 @@ public class grabObject : MonoBehaviour
             if (!grabbed)
             {
                 //grab
-                Physics2D.queriesStartInColliders = false;
-                Vector2  rayVector = new Vector2(1, -0.5f * transform.localScale.x);
-                hit = Physics2D.Raycast(transform.position, rayVector * transform.localScale.x, distance);
-                Debug.DrawRay(transform.position, rayVector * transform.localScale.x* distance,Color.green);
-                Debug.Log(hit.collider);
+                //Physics2D.queriesStartInColliders = false;
+                Vector2 rayVector = new Vector2(1, -0.5f * transform.localScale.x);
+                hit = Physics2D.Raycast(transform.position, rayVector * transform.localScale.x, distance, whatIsBox);
+                Debug.DrawRay(transform.position, rayVector * transform.localScale.x * distance, Color.green);
+                //Debug.Log(hit.collider);
                 if (hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                 {
                     Rigidbody2D grabbedObject = hit.collider.gameObject.GetComponent<Rigidbody2D>();
                     grabbed = true;
                 }
-            }   
+            }
             else
             {
                 //release
@@ -43,13 +44,13 @@ public class grabObject : MonoBehaviour
 
         }
         if (Input.GetButtonDown("Throw") && grabbed)
-        {   
+        {
             Rigidbody2D grabbedObject = hit.collider.gameObject.GetComponent<Rigidbody2D>();
             //throw 
             grabbed = false;
             if (grabbedObject != null)
             {
-                grabbedObject.velocity = new Vector2(transform.localScale.x, 1)*throwForce;
+                grabbedObject.velocity = new Vector2(transform.localScale.x, 1) * throwForce;
             }
         }
         if (grabbed && m_CrouchDisableCollider.enabled)
@@ -60,13 +61,6 @@ public class grabObject : MonoBehaviour
         {
             grabbed = false;
         }
-        
-    }
 
-    /*private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Vector3 horizontal = new Vector3(1, -0.5f*transform.localScale.x, 0);
-        Gizmos.DrawLine(transform.position,(transform.position+ horizontal * transform.localScale.x* distance));
-    }*/
+    }
 }
