@@ -9,5 +9,10 @@ public class skipMenu : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+    public void FinishGame()
+    {
+        SceneManager.LoadScene(3);
+
+    }
 }
 
