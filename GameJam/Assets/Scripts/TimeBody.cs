@@ -21,11 +21,11 @@ public class TimeBody : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown("Rewind"))
         {
             StarRewind();
         }
-        if (Input.GetKeyUp(KeyCode.Return))
+        if (Input.GetButtonUp("Rewind"))
         {
             StopRewind();
         }
