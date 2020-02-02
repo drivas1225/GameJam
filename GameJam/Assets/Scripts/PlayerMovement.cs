@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController2D controler;
+    public Animator animator;
     public float runSpeed = 40f;
     float HorizontalMove = 0f;
     float VerticalMove = 0f;
@@ -18,12 +19,16 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         HorizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
-        VerticalMove = Input.GetAxisRaw("Vertical") * runSpeed*3;
+        VerticalMove = Input.GetAxisRaw("Vertical") * runSpeed * 4;
+
+        animator.SetFloat("Speed", Mathf.Abs( HorizontalMove) );
 
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
+            animator.SetBool("IsJumping", true);
             stairs = false;
+
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -31,7 +36,12 @@ public class PlayerMovement : MonoBehaviour
             stairs = true;
             
         }
-        if(Input.GetButtonDown("Crouch"))
+        if (Input.GetKeyUp(KeyCode.UpArrow))
+        {
+            stairs = false;
+
+        }
+        if (Input.GetButtonDown("Crouch"))
         {
             crouch = true;
         } else if (Input.GetButtonUp("Crouch"))
@@ -41,11 +51,18 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Run"))
         {
             run = true;
+            animator.SetBool("IsRunning", true);
         }
         else if (Input.GetButtonUp("Run"))
         {
             run = false;
+            animator.SetBool("IsRunning", false);
         }
+    }
+
+    public void OnLanding()
+    {
+        animator.SetBool("IsJumping", false);
     }
 
     void FixedUpdate()

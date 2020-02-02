@@ -13,7 +13,7 @@ public class CharacterController2D : MonoBehaviour
     [SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
     [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
 
-    const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+    const float k_GroundedRadius = .1f; // Radius of the overlap circle to determine if grounded
     private bool m_Grounded;            // Whether or not the player is grounded.
     const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
     private Rigidbody2D m_Rigidbody2D;
@@ -138,6 +138,7 @@ public class CharacterController2D : MonoBehaviour
         {
             // Add a vertical force to the player.
             m_Grounded = false;
+            m_Rigidbody2D.gravityScale = 3;
             m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
         }
 
@@ -147,7 +148,7 @@ public class CharacterController2D : MonoBehaviour
 
         if (hitInfo.collider != null)
         {
-            Debug.Log("presionando");
+            
             if (stairs)
             {
                 isclimbing = true;
@@ -160,16 +161,19 @@ public class CharacterController2D : MonoBehaviour
 
         if (isclimbing  == true)
         {
-            
-            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, moveV);
+            Debug.Log("presionando");
             m_Rigidbody2D.gravityScale = 0;
 
+            m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, moveV);
+            
             if (jump)
             {
-                m_Grounded = false;
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
-                m_Rigidbody2D.gravityScale = 3;
                 isclimbing = false;
+                m_Grounded = false;
+                m_Rigidbody2D.gravityScale = 3;
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+                
+                
             }
         }
         else
