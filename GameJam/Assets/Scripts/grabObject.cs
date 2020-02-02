@@ -25,10 +25,10 @@ public class grabObject : MonoBehaviour
             if (!grabbed)
             {
                 //grab
-                //Physics2D.queriesStartInColliders = false;
+                Physics2D.queriesStartInColliders = false;
                 Vector2 rayVector = new Vector2(1, -0.5f * transform.localScale.x);
                 hit = Physics2D.Raycast(transform.position, rayVector * transform.localScale.x, distance, whatIsBox);
-                Debug.DrawRay(transform.position, rayVector * transform.localScale.x * distance, Color.green);
+                //Debug.DrawRay(transform.position, rayVector * transform.localScale.x * distance, Color.green);
                 //Debug.Log(hit.collider);
                 if (hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null)
                 {
@@ -40,6 +40,7 @@ public class grabObject : MonoBehaviour
             {
                 //release
                 grabbed = false;
+                Physics2D.queriesStartInColliders = true;
             }
 
         }
@@ -48,6 +49,7 @@ public class grabObject : MonoBehaviour
             Rigidbody2D grabbedObject = hit.collider.gameObject.GetComponent<Rigidbody2D>();
             //throw 
             grabbed = false;
+            Physics2D.queriesStartInColliders = true;
             if (grabbedObject != null)
             {
                 grabbedObject.velocity = new Vector2(transform.localScale.x, 1) * throwForce;
