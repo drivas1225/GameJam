@@ -25,7 +25,7 @@ public class grabObject : MonoBehaviour
             if (!grabbed)
             {
                 //grab
-                Physics2D.queriesStartInColliders = false;
+                //Physics2D.queriesStartInColliders = false;
                 Vector2 rayVector = new Vector2(1, -0.5f * transform.localScale.x);
                 hit = Physics2D.Raycast(transform.position, rayVector * transform.localScale.x, distance, whatIsBox);
                 Debug.DrawRay(transform.position, rayVector * transform.localScale.x * distance, Color.green);
@@ -40,7 +40,7 @@ public class grabObject : MonoBehaviour
             {
                 //release
                 grabbed = false;
-                Physics2D.queriesStartInColliders = true;
+                //Physics2D.queriesStartInColliders = true;
             }
 
         }

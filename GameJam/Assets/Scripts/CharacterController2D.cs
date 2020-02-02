@@ -144,7 +144,8 @@ public class CharacterController2D : MonoBehaviour
 
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.up, distance, whatIsLadder);
 
-        
+
+        isclimbing = false;
 
         if (hitInfo.collider != null)
         {
