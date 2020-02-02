@@ -29,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             stairs = true;
-            
         }
         if(Input.GetButtonDown("Crouch"))
         {
