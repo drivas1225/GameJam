@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     bool jump = false;
     bool stairs = false;
     bool crouch = false;
+    bool run = false;
 
 
     // Update is called once per frame
@@ -37,11 +38,19 @@ public class PlayerMovement : MonoBehaviour
         {
             crouch = false;
         }
+        if (Input.GetButtonDown("Run"))
+        {
+            run = true;
+        }
+        else if (Input.GetButtonUp("Run"))
+        {
+            run = false;
+        }
     }
 
     void FixedUpdate()
     {
-        controler.Move(HorizontalMove*Time.fixedDeltaTime, VerticalMove * Time.fixedDeltaTime, crouch,jump,stairs);
+        controler.Move(HorizontalMove*Time.fixedDeltaTime, VerticalMove * Time.fixedDeltaTime, crouch,jump,stairs,run);
 
         jump = false;
 
