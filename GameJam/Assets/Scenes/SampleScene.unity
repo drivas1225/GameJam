@@ -1565,6 +1565,7 @@ GameObject:
   - component: {fileID: 1720063977}
   - component: {fileID: 1720063976}
   - component: {fileID: 1720063979}
+  - component: {fileID: 1720063980}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1768,6 +1769,19 @@ MonoBehaviour:
   whatIsBox:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &1720063980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720063971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2224d629a26a08447a084334d1012a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRewinding: 0
 --- !u!1 &1816284301
 GameObject:
   m_ObjectHideFlags: 0
